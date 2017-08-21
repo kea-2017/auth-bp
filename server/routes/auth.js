@@ -23,4 +23,13 @@ function register (req, res, next) {
     })
 }
 
+router.get('/username', token.decode, (req, res) => {
+  const {username} = req.user
+  console.log(req.user);
+  res.json({
+    username
+  })
+})
+
+
 module.exports = router
