@@ -2,11 +2,12 @@ var express = require('express')
 var router = express.Router()
 
 var {userExists, createUser} = require('../db/users')
+var token = require('../auth/token')
 
 
-router.post('/register', register)
+router.post('/register', register, token.issue)
 
-function register (req, res) {
+function register (req, res, next) {
   const {username, password} = req.body
   console.log("comes in to auth route", {username, password});
   userExists(username, req.app.get('db'))
@@ -15,7 +16,7 @@ function register (req, res) {
         return res.status(400).send({message: 'User exists'})
       }
       createUser(username, password, req.app.get('db'))
-        .then(() => res.status(201).end())
+        .then(() => next())
     })
     .catch(err => {
       res.status(500).send({message: err.message})
