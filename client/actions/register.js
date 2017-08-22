@@ -9,7 +9,12 @@ export function registerUserRequest ({username, password}) {
         username, password
       })
       .end((err, res) => {
-        console.log(res.body)
+        if (err) {
+          alert("didn't work")
+        }
+        else {
+          saveUserToken(res.body.token)
+        }
       })
   }
 }

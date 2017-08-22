@@ -7,7 +7,7 @@ const baseURL = 'api/v1/'
 
 export default function consume(method = 'get', endpoint, data = {}) {
   const dataMethod = method.toLowerCase() === 'get' && 'query' || 'send'
-  const token =get('token')
+  const token = get('token')
   const headers = {
     Accept: 'application/json'
   }

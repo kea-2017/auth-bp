@@ -1,4 +1,5 @@
 import request from 'superagent'
+import consume from '../utils/api'
 
 export const receiveGreetings = (greetings) => {
   return {
@@ -9,14 +10,9 @@ export const receiveGreetings = (greetings) => {
 
 export function getGreetings () {
   return (dispatch) => {
-    request
-      .get(`/api/greetings`)
-      .end((err, res) => {
-        if (err) {
-          console.error(err.message)
-          return
-        }
-        dispatch(receiveGreetings(res.body))
+    consume('get', 'greetings')
+      .then((res) => {
+        console.log(res)
       })
   }
 }
